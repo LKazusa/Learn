@@ -15,7 +15,7 @@
   - React 数组节点：该节点由一个数组创建
 - 真实DOM：通过document.createElement创建的dom元素
 
-![](assets/2019-07-25-13-51-08.png)
+![](../img/2019-07-25-13-51-08.png)
 
 ## 首次渲染(新节点渲染)
 
@@ -50,7 +50,7 @@ ReactDOM.render(app, document.getElementById('root'));
 
 以上代码生成的虚拟DOM树：
 
-![](assets/2019-07-25-14-17-04.png)
+![](../img/2019-07-25-14-17-04.png)
 
 
 ```js
@@ -72,7 +72,7 @@ ReactDOM.render(app, document.getElementById('root'));
 
 以上代码生成的虚拟DOM树：
 
-![](assets/2019-07-25-14-49-53.png)
+![](../img/2019-07-25-14-49-53.png)
 
 
 ```js
@@ -100,7 +100,7 @@ ReactDOM.render(app, document.getElementById('root'));
 
 以上代码生成的虚拟DOM树：
 
-![](assets/2019-07-25-14-56-35.png)
+![](../img/2019-07-25-14-56-35.png)
 
 
 
