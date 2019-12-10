@@ -23,58 +23,65 @@ nodemon: 检测文件的变化
     nodemon --watch src -e ts --exec ts-node src/index.ts 只检测src下面的ts文件
 ```
 
-typescript的类型约束
-number `  num:number `
-string ` str:string `
-boolean `bool:boolean `
-array `arr:string[] `
-object `obj:object `
-null undefined  这两个是其他类型的子类型，即赋值给其他类型不报错，可以通过设置严格条件修改 ` "strictNullChecks": true`
+## typescript的类型约束
 
-- 联合类型 多个类型任选其一
+- number `  num:number `
+- string ` str:string `
+- boolean `bool:boolean `
+- array `arr:string[] `
+- object `obj:object `
+null undefined  这两个是其他类型的子类型，即赋值给其他类型不报错，可以通过设置严格条件修改 ` "strictNullChecks": true`
+- 联合类型 
+多个类型任选其一
 通常可以使用typeof来触发基本类型保护
-- void类型 通常用于约束函数的返回值，既不返回值
-- never类型 常用与表示函数永不结束
+```typescript
+let a: string|number;
+```
+- void类型 
+通常用于约束函数的返回值，既不返回值
+- never类型 
+常用与表示函数永不结束
     比如在函数中抛出错误或者死循环
 - 字面量类型 表示使用一个值进行约束
  `let a : 'aa';` 表示只能取值为aa
  `let arr:[] ;`表示arr只能为空数组
-- 元祖类型（Tuple) 一个固定长度的数组，且数组每一项的类型确定
+- 元组类型（Tuple) 一个固定长度的数组，且数组每一项的类型确定
  `let arr:[string, number];`
 - any类型 可以绕过类型选择
-
-
-使用type来对类型取别名，可以通过此方式来实现类型的复杂组合
+- type 类型别名
+可以通过此方式来实现类型的复杂组合
 ``` ts
-    type User = {
-        name: string,
-        age: number,
-        sex: '男' | '女'
-    };
-    let user :User;
-    user = {
-        name: 'xue',
-        age: 21,
-        sex: '男'
-    }
+type User = {
+    name: string,
+    age: number,
+    sex: '男' | '女'
+};
+let user :User;
+user = {
+    name: 'xue',
+    age: 21,
+    sex: '男'
+}
 ```
 
-实现了函数的重载
+- 函数的重载
+
 ``` ts
-function test1(str:string):string;
-function test1(num:number):number;
-function test1(a:string|number):string|number{
+function test1(str: string): string;
+function test1(num: number):number;
+function test1(a: string|number): string|number{
     return a;
 }
 ```
-函数可选参数（只能放在末尾）
+- 函数可选参数（只能放在末尾）
+
 ``` ts
 function test2(a:number,b?:number){
     //相当于b:number|undefined
 }
 ```
 
-## 枚举类型
+### 枚举类型
 - 逻辑含义和真实值产生了混淆，当修改真实值的时候会产生大量的修改
 - 字面量的值不会进入到编译结果
 ```ts
@@ -92,6 +99,7 @@ function test2(a:number,b?:number){
 ```
 枚举会出现在编译结果中
 枚举规则
+
 - 枚举的字段值可以为字符串和数组
 - 数字枚举的值自动递增
 - 被数字枚举约束的变量，可以直接赋值数字
@@ -102,12 +110,13 @@ function test2(a:number,b?:number){
 
 ts中使用esmodule
 ``` ts
-    import * as fs from 'fs';
+import * as fs from 'fs';
 ```
 
-扩展类型-接口
+### 扩展类型-接口
 扩展类型：类型别名，枚举，接口，类
 标准的形式：
+
 - API文档，弱标准
 - 代码约束，强标准
 
@@ -119,11 +128,14 @@ interface User{
     sayHello(): void,
     sayHello: () => void
 }
-
 interface Condition{
     (n: number): boolean  //此接口为一个函数，接收一个number返回一个boolean
-}
+}   
+```
 
+接口的继承
+
+```ts
 //接口是可以进行继承来实现多种接口组合
 //不可以覆盖父接口的成员
 interface Student extends User{
@@ -131,14 +143,19 @@ interface Student extends User{
 }
 
 //type也可以实现，需要使用交叉类型实现 & 
+//而且如果在type中实现覆盖，则会产生交叉类型（即无论赋值为哪一种类型都会报错，只会提示具有两种类型都存在的函数）
 type User{
     name: string
 }
 type Student{
     age: number
 } & User
+```
+readonly修饰符
 
-//只读修饰符，不参与编译，即不在编译结果中
+只读修饰符，不参与编译，即不在编译结果中
+
+```ts
 interface User{
     readonly id:string,
     readonly arr1: number[], //对数组变量进行约束
@@ -153,8 +170,6 @@ interface User{
 let user = {
     name 'xuege' as 'xuege'
 }
-
-
 ```
 
 interface 和 type
